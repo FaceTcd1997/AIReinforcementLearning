@@ -1,22 +1,42 @@
+from abc import ABC, abstractmethod
 import random
 
-class DefaultOpponent:
-    def __init__(self, symbol):
+class Player(ABC):
+    def __init__(self, symbol=None):
         self.symbol = symbol
-        self.opponent_symbol = 'O' if symbol == 'X' else 'X'
 
-    def get_symbol(self):
-        return self.symbol
+    @abstractmethod
+    def set_symbol(self, symbol):
+        self.symbol = symbol
 
-    def get_move(self, board):
+    @abstractmethod
+    def move(self, board):
+        pass
+
+    @abstractmethod
+    def final_result(self, board, result):
+        pass
+
+class DefaultOpponent(Player):
+
+    def __init__(self, symbol=None, opponent_symbol=None):
+        super().__init__(symbol)
+        self.opponent_symbol = opponent_symbol
+
+    def set_symbol(self, symbol):
+        super().set_symbol(symbol)
+
+    def set_opponent_symbol(self, opponent_symbol):
+        self.opponent_symbol = opponent_symbol
+
+    def move(self, board):
         # Check for winning move
         for row in range(3):
             for col in range(3):
                 if board[row][col] == ' ':
                     board[row][col] = self.symbol
-                    if self._check_winner(board, self.symbol):
-                        board[row][col] = ' '
-                        return row, col
+                    if self.check_winner(board, self.symbol):
+                        return board
                     else:
                         board[row][col] = ' '
 
@@ -25,9 +45,8 @@ class DefaultOpponent:
             for col in range(3):
                 if board[row][col] == ' ':
                     board[row][col] = self.opponent_symbol
-                    if self._check_winner(board, self.opponent_symbol):
-                        board[row][col] = ' '
-                        return row, col
+                    if self.check_winner(board, self.opponent_symbol):
+                        return board
                     else:
                         board[row][col] = ' '
 
@@ -38,9 +57,12 @@ class DefaultOpponent:
                 if board[row][col] == ' ':
                     empty_spaces.append((row, col))
         if empty_spaces:
-            return random.choice(empty_spaces)
+            rnd_move = random.choice(empty_spaces)
+            board[rnd_move[0]][rnd_move[1]] = self.symbol
 
-    def _check_winner(self, board, symbol):
+        return board
+
+    def check_winner(self, board, symbol):
         # Check rows
         for row in range(3):
             if board[row][0] == symbol and board[row][1] == symbol and board[row][2] == symbol:
@@ -59,3 +81,6 @@ class DefaultOpponent:
             return True
 
         return False
+
+    def final_result(self, board, result):
+        pass
