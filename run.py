@@ -1,51 +1,84 @@
-from tictactoe import board as ttt
 import matplotlib.pyplot as plt
-from  tictactoe.player import Player
+from tictactoe import play_game as play_tictactoe
+from connect4 import play_game as play_connect4
 
-
-def eval_players(p1 : Player, p2 : Player, num_battles : int, games_per_battle = 10):
+def eval_players_tictactoe(p1, p2, num_battles : int, games_per_battle = 100):
     p1_wins = []
     p2_wins = []
     draws = []
     count = []
-    #board = ttt.new_board()
 
+    print("Playing...")
     for i in range(1, num_battles):
-        print("New game...")
         p1winTot, p2winTot, drawTot = 0, 0, 0
         for j in range(games_per_battle):
-            board = ttt.new_board()
-            p1win, p2win, draw = ttt.play_game(board, p1, p2)
+            p1win, p2win, draw = play_tictactoe(p1, p2)
             p1winTot += p1win
             p2winTot += p2win
             drawTot += draw
-        p1_wins.append(p1winTot*100/10)
-        p2_wins.append(p2winTot*100/10)
-        draws.append(drawTot*100/10)
-        count.append(i)
+        p1_wins.append(p1winTot*100/games_per_battle)
+        p2_wins.append(p2winTot*100/games_per_battle)
+        draws.append(drawTot*100/games_per_battle)
+        count.append(i*games_per_battle)
+        p1_wins.append(p1winTot*100/games_per_battle)
+        p2_wins.append(p2winTot*100/games_per_battle)
+        draws.append(drawTot*100/games_per_battle)
+        count.append((i+1)*games_per_battle)
+    print("End")
 
     plt.ylabel('Game outcomes in %')
     plt.xlabel('Game number')
 
-    plt.plot(count, draws, 'r-', label='Draw')
-    plt.plot(count, p1_wins, 'g-', label='Player 1 wins')
-    plt.plot(count, p2_wins, 'b-', label='Player 2 wins')
+    p1_name = p1.get_name()
+    p2_name = p2.get_name()
+
+    plt.plot(count, draws, 'r-', label='Tie')
+    plt.plot(count, p1_wins, 'g-', label=p1_name)
+    plt.plot(count, p2_wins, 'b-', label=p2_name)
     plt.legend(loc='best', shadow=True, fancybox=True, framealpha =0.7)
     plt.show()
 
-# def eval_players2(p1 : Player, p2 : Player, num_battles : int, games_per_battle = 100, loc='best'):
-#     p1_wins = []
-#     p2_wins = []
-#     draws = []
-#     count = []
-#
-#     for i in range(num_battles):
-#         p1win, p2win, draw = battle(p1, p2, games_per_battle, True)
-#         p1_wins.append(p1win*100.0/games_per_battle)
-#         p2_wins.append(p2win*100.0/games_per_battle)
-#         draws.append(draw*100.0/games_per_battle)
-#         count.append(i*games_per_battle)
-#         p1_wins.append(p1win*100.0/games_per_battle)
-#         p2_wins.append(p2win*100.0/games_per_battle)
-#         draws.append(draw*100.0/games_per_battle)
-#         count.append((i+1)*games_per_battle)
+    print(p1_name + " number of states explored: " + str(p1.count))
+    print(p2_name + " number of states explored: " + str(p2.count))
+
+def eval_players_connect4(p1, p2, num_battles : int, games_per_battle = 100):
+    p1_wins = []
+    p2_wins = []
+    draws = []
+    count = []
+    turn = False
+
+    print("Playing...")
+    for i in range(1, num_battles):
+        p1winTot, p2winTot, drawTot = 0, 0, 0
+        for j in range(games_per_battle):
+            p1win, p2win, draw = play_connect4(p1, p2)
+            p1winTot += p1win
+            p2winTot += p2win
+            drawTot += draw
+        if turn:
+            p1_wins.append(p1winTot*100/games_per_battle)
+            p2_wins.append(p2winTot*100/games_per_battle)
+            draws.append(drawTot*100/games_per_battle)
+            count.append(i*games_per_battle)
+            p1_wins.append(p1winTot*100/games_per_battle)
+            p2_wins.append(p2winTot*100/games_per_battle)
+            draws.append(drawTot*100/games_per_battle)
+            count.append((i+1)*games_per_battle)
+        turn = not turn
+    print("End")
+
+    plt.ylabel('Game outcomes in %')
+    plt.xlabel('Game number')
+
+    p1_name = p1.get_name()
+    p2_name = p2.get_name()
+
+    plt.plot(count, draws, 'r-', label='Tie')
+    plt.plot(count, p1_wins, 'g-', label=p1_name)
+    plt.plot(count, p2_wins, 'b-', label=p2_name)
+    plt.legend(loc='best', shadow=True, fancybox=True, framealpha =0.7)
+    plt.show()
+
+    print(p1_name + " number of states explored: " + str(p1.count))
+    print(p2_name + " number of states explored: " + str(p2.count))
