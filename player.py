@@ -91,7 +91,7 @@ class MinMaxPlayer(Player):
             if  self.game == 'ttt':
                 move = self.minimax_alpha_beta_max_depth(board, self.symbol, depth=9)['move']
             else:
-                move = self.minimax_alpha_beta_max_depth(board, self.symbol, depth=7)['move']
+                move = self.minimax_alpha_beta_max_depth(board, self.symbol, depth=5)['move']
         return move
 
     def minimax_alpha_beta_max_depth(self, board, player, depth, alpha=-math.inf, beta=math.inf):
