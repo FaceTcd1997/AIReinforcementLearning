@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eb1a1ba8-a088-46b3-b4c5-7ec38326a2bf" name="Changes" comment="Implementation of games +&#10;Implementation of graphs to show as metrics +&#10;Implementation of player interface +&#10;Default opponent player heritage +&#10;board refactor +&#10;run case refactor +&#10;first draft of q_agent">
-      <change afterPath="$PROJECT_DIR$/connect4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tictactoe.py" afterDir="false" />
+    <list default="true" id="eb1a1ba8-a088-46b3-b4c5-7ec38326a2bf" name="Changes" comment="Bug fix + final implementation + refactoring">
+      <change afterPath="$PROJECT_DIR$/connect4_small.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tictactoe/board.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tictactoe/player.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tictactoe/test_q_agent.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +41,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\facci\Desktop\MScIntelligentSystems\Artificial Intelligence\AIReinforcementLearning" />
       <recent name="C:\Users\facci\Desktop\MScIntelligentSystems\Artificial Intelligence\AIReinforcementLearning\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -103,7 +100,11 @@
       <workItem from="1680097217993" duration="322000" />
       <workItem from="1680183772498" duration="755000" />
       <workItem from="1680279364770" duration="6589000" />
-      <workItem from="1680348638973" duration="2921000" />
+      <workItem from="1680348638973" duration="4972000" />
+      <workItem from="1680510722953" duration="15022000" />
+      <workItem from="1680684495573" duration="2635000" />
+      <workItem from="1680776891655" duration="9255000" />
+      <workItem from="1680862584616" duration="1952000" />
     </task>
     <task id="LOCAL-00001" summary="Board implementation for tic-tac-toe +&#10;Default opponent implementation +&#10;User vs Default use case implementation +&#10;Test">
       <created>1679310581290</created>
@@ -119,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679339521335</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Bug fix + final implementation + refactoring">
+      <created>1680455802100</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680455802100</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,7 +147,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Board implementation for tic-tac-toe +&#10;Default opponent implementation +&#10;User vs Default use case implementation +&#10;Test" />
     <MESSAGE value="Implementation of games +&#10;Implementation of graphs to show as metrics +&#10;Implementation of player interface +&#10;Default opponent player heritage +&#10;board refactor +&#10;run case refactor +&#10;first draft of q_agent" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementation of games +&#10;Implementation of graphs to show as metrics +&#10;Implementation of player interface +&#10;Default opponent player heritage +&#10;board refactor +&#10;run case refactor +&#10;first draft of q_agent" />
+    <MESSAGE value="Bug fix + final implementation + refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fix + final implementation + refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -155,14 +164,19 @@
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/connect4.py</url>
-          <line>100</line>
-          <option name="timeStamp" value="118" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tictactoe.py</url>
           <line>78</line>
           <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/connect4.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/player.py</url>
+          <line>225</line>
+          <option name="timeStamp" value="126" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -176,7 +190,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AIReinforcementLearning$board_v2.coverage" NAME="board_v2 Coverage Results" MODIFIED="1679766174068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/v2" />
-    <SUITE FILE_PATH="coverage/AIReinforcementLearning$main.coverage" NAME="main Coverage Results" MODIFIED="1680295013094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AIReinforcementLearning$main.coverage" NAME="main Coverage Results" MODIFIED="1680863931879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AIReinforcementLearning$main_v2.coverage" NAME="main_v2 Coverage Results" MODIFIED="1679771196533" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/v2" />
     <SUITE FILE_PATH="coverage/AIReinforcementLearning$run_v2.coverage" NAME="run_v2 Coverage Results" MODIFIED="1679746071900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/v2" />
   </component>

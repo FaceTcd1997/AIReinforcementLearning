@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from tictactoe import play_game as play_tictactoe
-from connect4 import play_game as play_connect4
+from connect4_small import play_game as play_connect4
 
 def eval_players_tictactoe(p1, p2, num_battles : int, games_per_battle = 100):
     p1_wins = []
@@ -46,7 +46,6 @@ def eval_players_connect4(p1, p2, num_battles : int, games_per_battle = 100):
     p2_wins = []
     draws = []
     count = []
-    turn = False
 
     print("Playing...")
     for i in range(1, num_battles):
@@ -56,16 +55,17 @@ def eval_players_connect4(p1, p2, num_battles : int, games_per_battle = 100):
             p1winTot += p1win
             p2winTot += p2win
             drawTot += draw
-        if turn:
-            p1_wins.append(p1winTot*100/games_per_battle)
-            p2_wins.append(p2winTot*100/games_per_battle)
-            draws.append(drawTot*100/games_per_battle)
-            count.append(i*games_per_battle)
-            p1_wins.append(p1winTot*100/games_per_battle)
-            p2_wins.append(p2winTot*100/games_per_battle)
-            draws.append(drawTot*100/games_per_battle)
-            count.append((i+1)*games_per_battle)
-        turn = not turn
+        if i == 40:
+            print()
+        p1_wins.append(p1winTot*100/games_per_battle)
+        p2_wins.append(p2winTot*100/games_per_battle)
+        draws.append(drawTot*100/games_per_battle)
+        count.append(i*games_per_battle)
+        p1_wins.append(p1winTot*100/games_per_battle)
+        p2_wins.append(p2winTot*100/games_per_battle)
+        draws.append(drawTot*100/games_per_battle)
+        count.append((i+1)*games_per_battle)
+
     print("End")
 
     plt.ylabel('Game outcomes in %')

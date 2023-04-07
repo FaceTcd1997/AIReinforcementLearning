@@ -8,7 +8,7 @@ class Player(ABC):
         if game == 'ttt':
             self.actions = [i for i in range(0, 9)]
         elif game == 'c4':
-            self.actions = [i for i in range(0, 7)]
+            self.actions = [i for i in range(0, 6)]
 
     def get_name(self):
         return self.__class__.__name__
@@ -91,10 +91,10 @@ class MinMaxPlayer(Player):
             if  self.game == 'ttt':
                 move = self.minimax_alpha_beta_max_depth(board, self.symbol, depth=9)['move']
             else:
-                move = self.minimax_alpha_beta_max_depth(board, self.symbol, depth=5)['move']
+                move = self.minimax_alpha_beta_max_depth(board, self.symbol, depth=7)['move']
         return move
 
-    def minimax_alpha_beta_max_depth(self, board, player, depth=5, alpha=-math.inf, beta=math.inf):
+    def minimax_alpha_beta_max_depth(self, board, player, depth, alpha=-math.inf, beta=math.inf):
         max_player = self.symbol  # yourself
         other_player = 'O' if player == 'X' else 'X'
 
@@ -121,7 +121,10 @@ class MinMaxPlayer(Player):
                 score = self.minimax_alpha_beta_max_depth(board, other_player, depth - 1, alpha, beta)
                 board.undo_move(index)
 
-                score['move'] = move
+                if score['move'] is None:
+                    score['move'] = random.choice(available_moves)
+                else:
+                    score['move'] = move
 
                 if player == max_player:
                     if score['score'] > best['score']:
@@ -201,25 +204,28 @@ class QPlayer(Player):
         return self.q_table[state]
 
     def get_move(self, board):
-        state = self.get_q(''.join(board.board))
-        available_moves = board.get_available_moves()
-
-        if random.uniform(0, 1) < self.epsilon:
-            move = random.choice(available_moves)
+        if board.is_first_move():
+            move = random.choice(board.get_available_moves())
         else:
-            self.count += len(state)
-            state = [(key, value) for key, value in state.items() if key in available_moves]
-            max_value = max([i[1] for i in state])
-            best_move = [i[0] for i in state if i[1] == max_value]
+            state = self.get_q(''.join(board.board))
+            available_moves = board.get_available_moves()
 
-            if len(best_move) > 1:  # If there are multiple optimal moves
-                move = random.choice(best_move)
+            if random.uniform(0, 1) < self.epsilon:
+                move = random.choice(available_moves)
             else:
-                move = best_move[0]
+                self.count += len(state)
+                state = [(key, value) for key, value in state.items() if key in available_moves]
+                max_value = max([i[1] for i in state])
+                best_move = [i[0] for i in state if i[1] == max_value]
 
-        self.epsilon = max(self.epsilon - self.delta_epsilon, 0.0)
+                if len(best_move) > 1:  # If there are multiple optimal moves
+                    move = random.choice(best_move)
+                else:
+                    move = best_move[0]
 
-        self.previous_states.append((''.join(board.board), move))
+            self.epsilon = max(self.epsilon - self.delta_epsilon, 0.0)
+
+            self.previous_states.append((''.join(board.board), move))
         return move
 
     def update(self, result):

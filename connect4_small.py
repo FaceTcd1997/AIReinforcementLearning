@@ -1,8 +1,8 @@
-class Connect4:
+class Connect4Small:
     def __init__(self):
-        self.columns = 7
-        self.rows = 6
-        self.cells = 42
+        self.columns = 6
+        self.rows = 5
+        self.cells = 30
         self.board = self.make_board()
 
     def make_board(self):
@@ -20,7 +20,7 @@ class Connect4:
 
     def make_move(self, move, symbol):
         for i in range(self.rows - 1, -1, -1):
-            index = i * 7 + move
+            index = i * 6 + move
             if self.board[index] == '-':
                 self.board[index] = symbol
                 return index
@@ -31,28 +31,28 @@ class Connect4:
     def check_winner(self):
         # Check rows
         for i in range(0, self.cells, self.columns):
-            for j in range(i, i + 4):
+            for j in range(i, i + 3):
                 if self.board[j] == self.board[j + 1] == self.board[j + 2] == self.board[j + 3] and self.board[j] != '-':
                     return self.board[j]
 
         # Check columns
         for i in range(self.columns):
-            for j in range(0, 3):
+            for j in range(0, 2):
                 index = i + j * self.columns
-                if self.board[index] == self.board[index + 7] == self.board[index + 14] == self.board[index + 21] and self.board[index] != '-':
+                if self.board[index] == self.board[index + 6] == self.board[index + 12] == self.board[index + 18] and self.board[index] != '-':
                     return self.board[index]
 
 
         # Check diagonals (top-left to bottom-right)
-        for i in range(0, 15, self.columns):
-            for j in range(i, i + 4):
-                if self.board[j] == self.board[j + 8] == self.board[j + 16] == self.board[j + 24] and self.board[j] != '-':
+        for i in range(0, 12, self.columns):
+            for j in range(i, i + 3):
+                if self.board[j] == self.board[j + 7] == self.board[j + 14] == self.board[j + 21] and self.board[j] != '-':
                     return self.board[j]
 
         # Check diagonals (top-right to bottom-left)
-        for i in range(3, 18, self.columns):
-            for j in range(i, i + 4):
-                if self.board[j] == self.board[j + 6] == self.board[j + 12] == self.board[j + 18] and self.board[j] != '-':
+        for i in range(3, 15, self.columns):
+            for j in range(i, i + 3):
+                if self.board[j] == self.board[j + 5] == self.board[j + 10] == self.board[j + 15] and self.board[j] != '-':
                     return self.board[j]
 
         # Check for draw
@@ -69,7 +69,7 @@ def display_board(board):
 
 def play_game(p1, p2):
 
-    board = Connect4()
+    board = Connect4Small()
 
     # P1 start
     turn = True
