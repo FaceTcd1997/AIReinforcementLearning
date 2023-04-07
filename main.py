@@ -5,7 +5,7 @@ from run import eval_players_tictactoe, eval_players_connect4
 
 """---------------------------TIC TAC TOE----------------------------"""
 # PLAYER ONE
-#p1 = DefaultOpponentFullRandom(symbol='X', game='ttt')
+p1 = DefaultOpponentFullRandom(symbol='X', game='ttt')
 #p1 = DefaultOpponent(symbol='X', game='ttt')
 #p1 = MinMaxPlayer(symbol='X', game='ttt')
 #p1 = QPlayer(symbol='X', game='ttt', alpha=0.8, gamma=0.95, epsilon=0.4, delta_epsilon=0.00001)
@@ -13,9 +13,9 @@ from run import eval_players_tictactoe, eval_players_connect4
 #p2 = DefaultOpponentFullRandom(symbol='O', game='ttt')
 #p2 = DefaultOpponent(symbol='O', game='ttt')
 #p2 = MinMaxPlayer(symbol='O', game='ttt')
-#p2 = QPlayer(symbol='O',game='ttt', alpha=0.8, gamma=0.95, epsilon=0.4, delta_epsilon=0.00001)
+p2 = QPlayer(symbol='O',game='ttt', alpha=0.8, gamma=0.95, epsilon=0.4, delta_epsilon=0.00001)
 # TIC TAC TOE SIMULATION
-#eval_players_tictactoe(p1, p2, 100)
+eval_players_tictactoe(p1, p2, 100)
 
 """----------------------------CONNECT 4-----------------------------"""
 # PLAYER ONE
