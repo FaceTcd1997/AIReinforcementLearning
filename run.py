@@ -55,8 +55,6 @@ def eval_players_connect4(p1, p2, num_battles : int, games_per_battle = 100):
             p1winTot += p1win
             p2winTot += p2win
             drawTot += draw
-        if i == 40:
-            print()
         p1_wins.append(p1winTot*100/games_per_battle)
         p2_wins.append(p2winTot*100/games_per_battle)
         draws.append(drawTot*100/games_per_battle)
